@@ -7,8 +7,17 @@ with open('C:\\Users\\lem1\\Desktop\\aws\\nlp\\lyrics.txt') as file:
 lyrics = [x.strip() for x in content]
 
 sid = SentimentIntensityAnalyzer()
+neg = 0
+pos = 0
+neu = 0
+
 for sentence in lyrics:
-     print(sentence)
      ss = sid.polarity_scores(sentence)
-     for k in ss:
-         print('{0}: {1}, '.format(k, ss[k]), end='')
+     neg += ss['neg']*100
+     pos += ss['pos']*100
+     neu += ss['neu']*100
+
+pos = format(pos / len(lyrics), '.2f')
+neg = format(neg / len(lyrics), '.2f')
+neu = format(neu / len(lyrics), '.2f')
+print ('This song is', pos, '% positive', neg, '% negative and', neu, '% neutral')
